@@ -15,18 +15,18 @@ from .router import router
 from server.utils.pagination import paginate
 
 
-@router.get('/user-list', response_model=UserListOutResponse)
+@router.get('/user/user-list', response_model=UserListOutResponse)
 async def get_user(db: AsyncSession = Depends(get_async_db), filter: UserFilterIn = Query()):
     statement = select(User)
     statement = paginate(statement, page=filter.page, size=filter.size)
     result = await db.execute(statement)
-    users = result.scalars().all()
+    user_list = result.scalars().all()
 
     statement = select(func.count()).select_from(User)
     result = await db.execute(statement)
     total = result.scalar() or 0
 
-    return make_records_response(records=users, total=total, page=filter.page, size=filter.size)
+    return make_records_response(records=user_list, total=total, page=filter.page, size=filter.size)
 
 
 @router.post('/user', response_model=UserOutResponse)

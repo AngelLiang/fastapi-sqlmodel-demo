@@ -1,18 +1,16 @@
 from sqlmodel import SQLModel
-
-from server.models import User
+from typing import List, Optional
+from server.models import Course
 from server.utils.schemas import make_response_schema, make_records_response_schema
 from server.utils.schemas import to_camel_case
 
 
-class UserFilterIn(SQLModel):
+class CourseFilterIn(SQLModel):
     page: int | None = None
     size: int | None = None
 
 
-class UserAddIn(SQLModel):
-    username: str
-    password_hash: str
+class CourseAddIn(SQLModel):
 
     class Config:
         from_attributes = True
@@ -21,9 +19,8 @@ class UserAddIn(SQLModel):
         alias_generator = to_camel_case
 
 
-class UserUpdateIn(SQLModel):
-    username: str
-    password_hash: str
+class CourseUpdateIn(SQLModel):
+    name: str
 
     class Config:
         from_attributes = True
@@ -32,10 +29,10 @@ class UserUpdateIn(SQLModel):
         alias_generator = to_camel_case
 
 
-class UserOut(SQLModel):
-    id: int
-    username: str
-    # password_hash: str
+class CourseOut(SQLModel):
+    id: Optional[int] = None
+    name: str
+    # 不包含 user_course_relation 字段，避免循环引用问题
 
     class Config:
         from_attributes = True
@@ -44,5 +41,5 @@ class UserOut(SQLModel):
         alias_generator = to_camel_case
 
 
-UserOutResponse = make_response_schema(UserOut)
-UserListOutResponse = make_records_response_schema(UserOut)
+CourseOutResponse = make_response_schema(CourseOut)
+CourseListOutResponse = make_records_response_schema(CourseOut)

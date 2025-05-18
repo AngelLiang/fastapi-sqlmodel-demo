@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel, create_model
+from pydantic import BaseModel, create_model, ConfigDict
 
 
 class ResponseOut(BaseModel):
@@ -57,12 +57,12 @@ def make_records_response_schema(model_schema: object, class_name: str = None):
     data_schema_name = class_name + 'Data'
     data_schema = create_model(
         data_schema_name,
-        __config__=None,
+        __config__=ConfigDict(arbitrary_types_allowed=True),
         __base__=BaseModel,
         __module__=BaseModel.__module__,
         __validators__={},
         **data_schema_fields,
-    )  # type: ignore
+    )
     response_schema = make_response_schema(data_schema, class_name)
 
     return response_schema

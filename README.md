@@ -32,12 +32,12 @@
 
 1、数据库设计 -> 导出模型 -> 实现服务
 
-在数据库中设计好数据表后，使用sqlacodegen工具导出sqlmodel模型，然后放到server目录里，引入这个模型。
+在数据库中设计好数据表后，使用sqlacodegen工具导出模型，然后放到server目录里，引入这个模型。
 
 sqlacodegen示例：
 
 ```
-uv run sqlacodegen --generator sqlmodels  mysql+pymysql://root:root@127.0.0.1:3306/fastapi_sqlmodel_demo?charset=utf8 > models.py
+uv run sqlacodegen --generator sqlmodels --options noconstraints,nobidi mysql+pymysql://root:root@127.0.0.1:3306/fastapi_sqlmodel_demo?charset=utf8 > models.py
 ```
 
 之后就可以对这些模型编写schema，再使用这些schema编写相关的接口。

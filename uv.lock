@@ -79,6 +79,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "aiomysql" },
     { name = "fastapi" },
+    { name = "pydantic" },
     { name = "pymysql" },
     { name = "python-dotenv" },
     { name = "sqlacodegen" },
@@ -90,6 +91,7 @@ dependencies = [
 requires-dist = [
     { name = "aiomysql", specifier = ">=0.2.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
+    { name = "pydantic", specifier = ">=2.11.4" },
     { name = "pymysql", specifier = ">=1.1.1" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "sqlacodegen", specifier = ">=3.0.0" },
